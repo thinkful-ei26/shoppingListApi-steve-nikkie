@@ -17,7 +17,7 @@ const store = (function() {
 
   const findAndUpdate = function(id, newData) {
     const item = this.findById(id); //returns a reference to the object in the store. We need to call the fn on the store, not locally referencing it (so this.findById)
-    Object.assign(item, newData); //this will mutate the first argument 
+    Object.assign(item, newData); //this will mutate the first argument
   };
 
   const toggleCheckedFilter = function() {
