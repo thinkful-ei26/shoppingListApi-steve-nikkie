@@ -17,7 +17,7 @@ const api = (function() {
     });
   };
 
-  const createItem = function(name, callback) {
+  const createItem = function(name, callback, error) {
     const newItem = JSON.stringify({
       name: name
     });
@@ -28,6 +28,9 @@ const api = (function() {
       data: newItem,
       success: response => {
         callback(response);
+      },
+      error: response => {
+        error(response);
       }
     });
   };

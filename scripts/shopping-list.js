@@ -43,6 +43,9 @@ const shoppingList = (function() {
   function render() {
     // Filter item list if store prop is true by item.checked === false
     let items = [...store.items];
+    if (store.error) {
+      $('.error-message').html(store.error);
+    }
     if (store.hideCheckedItems) {
       items = items.filter(item => !item.checked);
     }
@@ -66,11 +69,18 @@ const shoppingList = (function() {
       event.preventDefault();
       const newItemName = $('.js-shopping-list-entry').val();
       $('.js-shopping-list-entry').val('');
-      api.createItem(newItemName, item => {
-        console.log('making a request to create an item');
-        store.addItem(item);
-        render();
-      });
+      api.createItem(
+        newItemName,
+        item => {
+          console.log('making a request to create an item');
+          store.addItem(item);
+          render();
+        },
+        error => {
+          store.setError(error.responseJSON.message);
+          render();
+        }
+      );
     });
   }
 

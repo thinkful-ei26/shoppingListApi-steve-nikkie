@@ -6,7 +6,8 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-button, input[type="text"] {
+button,
+input[type='text'] {
   padding: 5px;
 }
 
@@ -40,6 +41,9 @@ button:hover:disabled {
   margin-bottom: 20px;
   border: 1px solid grey;
   padding: 20px;
+}
+.error-message {
+  color: red;
 }
 
 .shopping-item {
