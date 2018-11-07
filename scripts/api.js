@@ -1,4 +1,5 @@
 /* global cuid */
+'use strict';
 
 // eslint-disable-next-line no-unused-vars
 const api = (function() {
@@ -10,10 +11,12 @@ const api = (function() {
       method: 'GET',
       contentType: 'application/json',
       success: response => {
+        callback(response);
         console.log(response);
       }
     });
   };
+
   const createItem = function(name, callback) {
     const newItem = JSON.stringify({
       name: name
@@ -24,13 +27,29 @@ const api = (function() {
       contentType: 'application/json',
       data: newItem,
       success: response => {
-        console.log(response);
+        callback(response);
       }
     });
   };
 
+  const updateItem = function(id, updateData, callback){
+    console.log('in updateItem api fn');
+    $.ajax(
+      {
+        url: `${BASE_URL}/items/${id}`,
+        method: 'PATCH', 
+        contentType: 'application/json',
+        data: JSON.stringify(updateData),
+        success: response => {
+          callback(response);
+        }
+      }
+    );
+  };
+
   return {
     getItems,
-    createItem
+    createItem,
+    updateItem
   };
 })();
